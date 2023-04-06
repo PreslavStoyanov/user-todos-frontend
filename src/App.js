@@ -1,22 +1,22 @@
 import {useState} from "react";
 import "./App.css";
-import Users from "./Users";
-import ToDoRow from "./ToDoRow";
+import Users from "./components/Users";
+import ToDoRow from "./components/ToDoRow";
 import {Divider} from 'antd';
-import * as services from "./services";
+import * as toDoService from "./services/ToDoService";
 import {Header} from "antd/es/layout/layout";
 
 function App() {
     const [todos, setTodos] = useState([]);
 
     function showToDos(userId) {
-        services.fetchToDos(userId).then((data) => {
+        toDoService.fetchToDos(userId).then((data) => {
             setTodos(data);
         });
     }
 
     function changeStatus(id, status) {
-        services.updateToDoStatus(id, status);
+        toDoService.updateToDoStatus(id, status);
     }
 
     return (

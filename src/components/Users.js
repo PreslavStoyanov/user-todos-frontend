@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Space, Table} from "antd";
-import * as services from "./services";
+import * as userService from ".././services/UserService";
 
 const {Column} = Table;
 
@@ -10,7 +10,7 @@ export default function Users({showToDos}) {
 
     useEffect(() => {
         console.log("Fetching users");
-        services.fetchUsers().then((data) => {
+        userService.fetchUsers().then((data) => {
             setUsers(data);
         });
     }, []);
