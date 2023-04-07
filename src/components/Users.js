@@ -10,7 +10,7 @@ export default function Users({showToDos}) {
 
     useEffect(() => {
         console.log("Fetching users");
-        userService.fetchUsers().then((data) => {
+        userService.getUsers().then((data) => {
             setUsers(data);
         });
     }, []);

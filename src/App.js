@@ -10,7 +10,7 @@ function App() {
     const [todos, setTodos] = useState([]);
 
     function showToDos(userId) {
-        toDoService.fetchToDos(userId).then((data) => {
+        toDoService.getUserToDos(userId).then((data) => {
             setTodos(data);
         });
     }

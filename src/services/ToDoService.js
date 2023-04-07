@@ -1,9 +1,24 @@
 import axios from "axios";
 
-export function fetchToDos(userId) {
-    return fetch(`http://localhost:8080/todos?userId=${userId}`).then((response) => response.json());
+const SERVER_HOSTNAME = "http://localhost:8080";
+const SERVICE_URI = SERVER_HOSTNAME + `/todos`;
+
+export function addToDo(id, toDoInput) {
+    return axios.post(`${SERVICE_URI}/${id}`, toDoInput);
+}
+
+export function getUserToDos(userId) {
+    return axios.get(`${SERVICE_URI}?userId=${userId}`).then(response => response.data);
 }
 
 export function updateToDoStatus(id, status) {
-    return axios.put(`http://localhost:8080/todos/${id}?status=${status}`);
+    return axios.patch(`${SERVICE_URI}/${id}?status=${status}`);
+}
+
+export function updateToDo(id, toDoInput) {
+    return axios.put(`${SERVICE_URI}/${id}`, toDoInput);
+}
+
+export function deleteToDo(id) {
+    return axios.delete(`${SERVICE_URI}/${id}`);
 }
