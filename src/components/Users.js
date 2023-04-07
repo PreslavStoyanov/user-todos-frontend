@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Space, Table} from "antd";
+import {Button, Divider, Space, Table} from "antd";
 import * as userService from ".././services/UserService";
 
 const {Column} = Table;
@@ -21,6 +21,7 @@ export default function Users({showToDos}) {
 
     return (
         <div>
+            <Divider orientation="left">Users</Divider>
             <Table
                 dataSource={users}
                 rowKey="id"
@@ -34,6 +35,7 @@ export default function Users({showToDos}) {
                 <Column title="Name" dataIndex="name" key="name"/>
             </Table>
             <Space style={{ marginTop: '16px', marginLeft: '16px' }}>
+                <Button type={"primary"}>Add User</Button>
                 <Button type="default" disabled={!selectedUser} onClick={handleShowTODOsClick}>Show TODOs</Button>
                 <Button type="default" disabled={!selectedUser}>Add TODO</Button>
                 <Button type="default" disabled={!selectedUser}>Update User</Button>

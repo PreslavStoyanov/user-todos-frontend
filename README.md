@@ -2,12 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Used libraries
 To run the project need to run:
-
 `npm install`
-`npm install axios`
-`npm install antd`
+
+## Used libraries
+`npm install axios`\
+`npm install antd`\
+`npm install @ant-design/pro-components`\
 
 ## Available Scripts
 
