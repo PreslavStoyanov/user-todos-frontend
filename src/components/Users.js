@@ -10,7 +10,6 @@ export default function Users({showToDos}) {
     const [selectedUser, setSelectedUser] = useState(null);
 
     useEffect(() => {
-        console.log("Fetching users");
         userService.getUsers().then((data) => {
             setUsers(data);
         });
@@ -23,18 +22,15 @@ export default function Users({showToDos}) {
     return (
         <div>
             <Divider orientation="left">Users</Divider>
-            <Table
-                dataSource={users}
-                rowKey="id"
-                pagination={false}
-                rowSelection={{
-                    type: 'radio',
-                    onChange: (_, selectedRow) => setSelectedUser(selectedRow[0].id)
-                }}
-            >
+            <Table dataSource={users} rowKey="id" pagination={false}
+                   rowSelection={{
+                       type: 'radio',
+                       onChange: (_, selectedRow) => setSelectedUser(selectedRow[0].id)
+                   }}>
                 <Column title="Id" dataIndex="id" key="id"/>
                 <Column title="Name" dataIndex="name" key="name"/>
             </Table>
+
             <Space style={{marginTop: '16px', marginLeft: '16px'}}>
                 <Link to="/add-user">
                     <Button type={"primary"}>Add User</Button>
@@ -50,6 +46,7 @@ export default function Users({showToDos}) {
                 </Link>
                 <Button danger type="default" disabled={!selectedUser}>Delete User</Button>
             </Space>
+
             <Outlet/>
         </div>
     );

@@ -3,8 +3,8 @@ import axios from "axios";
 const SERVER_HOSTNAME = 'http://localhost:8080';
 const SERVICE_URI = SERVER_HOSTNAME + `/users`;
 
-export function addUser(id, userInput) {
-    return axios.post(`${SERVICE_URI}/${id}`, userInput);
+export function addUser(userInput) {
+    return axios.post(`${SERVICE_URI}`, userInput);
 }
 
 export function getUsers() {

@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import {Divider, Select} from "antd";
 import * as toDoService from "../services/ToDoService";
 
+const {Option} = Select;
+
 export default function ToDos({todos}) {
     const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
@@ -27,21 +29,12 @@ export default function ToDos({todos}) {
                         render: (_, record) => {
                             return <Select
                                 defaultValue={record.status}
-                                style={{
-                                    width: 120,
-                                }}
+                                style={{width: 120}}
                                 onChange={(value) => toDoService.updateToDoStatus(record.id, value)}
-                                options={[
-                                    {
-                                        value: 'DONE',
-                                        label: 'DONE',
-                                    },
-                                    {
-                                        value: 'TO_DO',
-                                        label: 'TODO',
-                                    },
-                                ]}
-                            />
+                            >
+                                <Option value="DONE">DONE</Option>
+                                <Option value="TO_DO">TODO</Option>
+                            </Select>
                         },
                     },
                 }}
