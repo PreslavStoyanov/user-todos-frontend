@@ -6,14 +6,13 @@ To run the project need to run:
 `npm install`
 
 ## Used libraries
+`npm install react-router-dom`\
 `npm install axios`\
 `npm install antd`\
 `npm install @ant-design/pro-components`\
 
 ## Available Scripts
-
 In the project directory, you can run:
-
 `npm start`
 
 Runs the app in the development mode.\

@@ -1,8 +1,9 @@
 import {ProList} from '@ant-design/pro-components';
 import React, {useState} from 'react';
 import {Divider, Select} from "antd";
+import * as toDoService from "../services/ToDoService";
 
-export default function ToDos({todos, changeStatus}) {
+export default function ToDos({todos}) {
     const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
     return (
@@ -29,7 +30,7 @@ export default function ToDos({todos, changeStatus}) {
                                 style={{
                                     width: 120,
                                 }}
-                                onChange={(value) => changeStatus(record.id, value)}
+                                onChange={(value) => toDoService.updateToDoStatus(record.id, value)}
                                 options={[
                                     {
                                         value: 'DONE',
@@ -46,6 +47,5 @@ export default function ToDos({todos, changeStatus}) {
                 }}
             />
         </div>
-
     );
 };
