@@ -1,14 +1,27 @@
 import {ProList} from '@ant-design/pro-components';
 import React, {useState} from 'react';
-import {Divider, Select} from "antd";
+import {Button, Divider, Popconfirm, Select} from "antd";
 import * as toDoService from "../services/ToDoService";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import * as todoService from "../services/ToDoService";
+import {Link, Outlet} from "react-router-dom";
 
 const {Option} = Select;
 
 export default function ToDos() {
     const [expandedRowKeys, setExpandedRowKeys] = useState([]);
     const todos = useSelector(state => state.todos);
+    const dispatch = useDispatch();
+
+    function confirm(record) {
+        todoService.deleteToDo(record.id)
+            .then(() => {
+                return todoService.getUserToDos(record.userId);
+            })
+            .then((data) => {
+                dispatch({type: 'SET_TODOS', payload: data});
+            })
+    }
 
     return (
         <div>
@@ -25,7 +38,22 @@ export default function ToDos() {
                         render: (_, record) => record.createdAt,
                     },
                     description: {
-                        render: (_, record) => record.summary,
+                        render: (_, record) =>
+                            <div>
+                                {record.summary}
+                                <Link to={'/todos/edit'}>
+                                    <Button type="link">Edit</Button>
+                                </Link>
+                                <Popconfirm
+                                    title="Delete the TODO"
+                                    description="Are you sure to delete this TODO?"
+                                    onConfirm={() => confirm(record)}
+                                    okText="Yes"
+                                    cancelText="No"
+                                >
+                                    <Button type="link">Delete</Button>
+                                </Popconfirm>
+                            </div>
                     },
                     actions: {
                         render: (_, record) => {
@@ -41,6 +69,7 @@ export default function ToDos() {
                     },
                 }}
             />
+            <Outlet/>
         </div>
     );
 };

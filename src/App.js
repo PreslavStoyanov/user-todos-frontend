@@ -10,6 +10,7 @@ import AddToDo from "./components/AddToDo";
 import UpdateUser from "./components/UpdateUser";
 import {Provider} from "react-redux";
 import store from './store/store';
+import EditToDo from "./components/EditToDo";
 
 export default function App() {
     const router = createBrowserRouter([
@@ -19,19 +20,25 @@ export default function App() {
             errorElement: <ErrorPage/>,
             children: [
                 {
-                    path: "todos",
+                    path: "/todos",
                     element: <ToDos/>,
+                    children: [
+                        {
+                            path: "/todos/edit",
+                            element: <EditToDo/>
+                        }
+                    ]
                 },
                 {
-                    path: "add-user",
+                    path: "/add-user",
                     element: <AddUser/>,
                 },
                 {
-                    path: "add-todo",
+                    path: "/add-todo",
                     element: <AddToDo/>,
                 },
                 {
-                    path: "update-user",
+                    path: "/update-user",
                     element: <UpdateUser/>,
                 },
             ],

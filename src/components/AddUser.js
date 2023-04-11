@@ -1,6 +1,8 @@
 import {Button, Divider, Form, Input} from "antd";
 import * as userService from ".././services/UserService";
 import React from "react";
+import * as todoService from "../services/ToDoService";
+import {useDispatch} from "react-redux";
 
 const layout = {
     labelCol: {
@@ -19,8 +21,16 @@ const tailLayout = {
 
 export default function AddUser() {
     const [form] = Form.useForm();
+    const dispatch = useDispatch();
+
     const onFinish = (values) => {
-        userService.addUser(values);
+        userService.addUser(values)
+            .then(() => {
+                return userService.getUsers();
+            })
+            .then((data) => {
+                dispatch({ type: 'SET_USERS', payload: data });
+            });
         form.resetFields();
     };
 

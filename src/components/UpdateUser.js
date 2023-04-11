@@ -1,7 +1,7 @@
 import {Button, Divider, Form, Input} from "antd";
 import React from "react";
 import * as userService from ".././services/UserService";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const layout = {
     labelCol: {
@@ -21,9 +21,16 @@ const tailLayout = {
 export default function UpdateUser() {
     const [form] = Form.useForm();
     const selectedUserId = useSelector(state => state.selectedUserId);
+    const dispatch = useDispatch();
 
     const onFinish = (values) => {
-        userService.updateUser(selectedUserId, values);
+        userService.updateUser(selectedUserId, values)
+            .then(() => {
+                return userService.getUsers();
+            })
+            .then((data) => {
+                dispatch({ type: 'SET_USERS', payload: data });
+            });
         form.resetFields();
     };
 

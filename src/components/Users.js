@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Button, Divider, Space, Table} from "antd";
+import {Button, Divider, Popconfirm, Space, Table} from "antd";
 import {useDispatch, useSelector} from 'react-redux';
 import * as userService from ".././services/UserService";
 import * as todoService from ".././services/ToDoService";
@@ -24,6 +24,16 @@ export default function Users() {
             dispatch({type: 'SET_TODOS', payload: data});
         })
     };
+
+    function confirmDelete() {
+        userService.deleteUser(selectedUserId)
+            .then(() => {
+                return userService.getUsers();
+            })
+            .then((data) => {
+                dispatch({ type: 'SET_TODOS', payload: data });
+            })
+    }
 
     return (
         <div>
@@ -50,7 +60,16 @@ export default function Users() {
                 <Link to="/update-user">
                     <Button type="default" disabled={!selectedUserId}>Update User</Button>
                 </Link>
-                <Button danger type="default" disabled={!selectedUserId}>Delete User</Button>
+                <Popconfirm
+                    title="Delete the User"
+                    description="Are you sure to delete this User?"
+                    onConfirm={() => confirmDelete}
+                    okText="Yes"
+                    cancelText="No"
+                >
+                    <Button danger type="default" disabled={!selectedUserId}>Delete User</Button>
+                </Popconfirm>
+
             </Space>
 
             <Outlet/>

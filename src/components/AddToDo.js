@@ -1,8 +1,9 @@
 import React from "react";
 import {Button, Divider, Form, Input, Select} from "antd";
 import TextArea from "antd/es/input/TextArea";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import * as toDoService from "../services/ToDoService";
+import * as todoService from "../services/ToDoService";
 
 const layout = {
     labelCol: {
@@ -22,9 +23,16 @@ const tailLayout = {
 export default function AddToDo() {
     const [form] = Form.useForm();
     const selectedUserId = useSelector(state => state.selectedUserId);
+    const dispatch = useDispatch();
 
     const onFinish = (values) => {
-        toDoService.addToDo(selectedUserId, values);
+        toDoService.addToDo(selectedUserId, values)
+            .then(() => {
+                return todoService.getUserToDos(selectedUserId);
+            })
+            .then((data) => {
+                dispatch({ type: 'SET_TODOS', payload: data });
+            })
         form.resetFields();
     };
 
