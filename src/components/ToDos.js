@@ -2,11 +2,13 @@ import {ProList} from '@ant-design/pro-components';
 import React, {useState} from 'react';
 import {Divider, Select} from "antd";
 import * as toDoService from "../services/ToDoService";
+import {useSelector} from "react-redux";
 
 const {Option} = Select;
 
-export default function ToDos({todos}) {
+export default function ToDos() {
     const [expandedRowKeys, setExpandedRowKeys] = useState([]);
+    const todos = useSelector(state => state.todos);
 
     return (
         <div>

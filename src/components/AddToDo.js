@@ -1,6 +1,8 @@
 import React from "react";
 import {Button, Divider, Form, Input, Select} from "antd";
 import TextArea from "antd/es/input/TextArea";
+import {useSelector} from "react-redux";
+import * as toDoService from "../services/ToDoService";
 
 const layout = {
     labelCol: {
@@ -19,8 +21,11 @@ const tailLayout = {
 
 export default function AddToDo() {
     const [form] = Form.useForm();
+    const selectedUserId = useSelector(state => state.selectedUserId);
+
     const onFinish = (values) => {
-        console.log(values);
+        toDoService.addToDo(selectedUserId, values);
+        form.resetFields();
     };
 
     const onReset = () => {
@@ -40,7 +45,7 @@ export default function AddToDo() {
                     <Input/>
                 </Form.Item>
 
-                <Form.Item name="summary" label="Summary">
+                <Form.Item name="summary" label="Summary" rules={[{required: true}]}>
                     <TextArea/>
                 </Form.Item>
 

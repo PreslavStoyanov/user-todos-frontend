@@ -3,8 +3,14 @@ import axios from "axios";
 const SERVER_HOSTNAME = "http://localhost:8080";
 const SERVICE_URI = SERVER_HOSTNAME + `/todos`;
 
-export function addToDo(id, toDoInput) {
-    return axios.post(`${SERVICE_URI}/${id}`, toDoInput);
+export function addToDo(userId, toDoInput) {
+    return axios.post(`${SERVICE_URI}`,
+        {
+            userId: userId,
+            name: toDoInput.name,
+            summary: toDoInput.summary,
+            status: toDoInput.status
+        });
 }
 
 export function getUserToDos(userId) {

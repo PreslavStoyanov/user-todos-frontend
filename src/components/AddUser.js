@@ -20,8 +20,8 @@ const tailLayout = {
 export default function AddUser() {
     const [form] = Form.useForm();
     const onFinish = (values) => {
-        console.log(values);
         userService.addUser(values);
+        form.resetFields();
     };
 
     const onReset = () => {
